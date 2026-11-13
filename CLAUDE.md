@@ -63,7 +63,7 @@ The course says: "There are a few strange bits of code in the Linko starter repo
 ## Tooling
 
 - Go 1.27. golangci-lint must be v2.15.0 or newer and gopls must be built with Go 1.27, or they reject newer export data and syntax (`export data version 5 is greater than maximum supported version 4`). Check with `go version $(which gopls)` when the editor and CLI disagree.
-- Boot.dev CLI (`bootdev`, v1.32.5 checked). `bootdev run <id>` checks; `bootdev run -s <id>` submits. Run it from the repository root, with Linko running when the lesson says so.
+- Boot.dev CLI (`bootdev`, v1.32.6 checked). `bootdev run <id>` checks; `bootdev run -s <id>` submits. Run it from the repository root, with Linko running when the lesson says so.
 - Third-party modules (Prometheus client, OpenTelemetry) arrive with the lessons that need them. Add them with `go get` in the lesson commit and keep `go.sum` committed.
 - Prometheus, Grafana and Jaeger: run locally only (containers or packages), never against a work account or work endpoint. Docker is not installed on every machine; check before a lesson needs it.
 
