@@ -23,6 +23,12 @@ go run . -port 9000 -data ./data
 
 ## Learning goals
 
+The course frames observability as two questions. I hold my production
+services to them:
+
+1. **How do I know when something is going wrong?** (detection)
+2. **How can I identify the problem as quickly as possible?** (diagnosis)
+
 The course page gives one line per chapter. The goals below restate those
 lines; the bullets after the first one in each chapter are my expansion of the
 line, not text from the course.
