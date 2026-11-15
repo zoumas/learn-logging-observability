@@ -52,6 +52,7 @@ The course says: "There are a few strange bits of code in the Linko starter repo
 - Baseline measured on the starter at `36bba29` (2026-11-13), so later reviews can tell starter issues from new ones:
   - `gofmt -l .` and `go vet ./...` are clean.
   - `golangci-lint run` reports 6 errcheck issues (unchecked `io.WriteString`, `json.Encoder.Encode`, `f.Close`).
+  - From 2.2, `.golangci.yml` enables `forbidigo` (`^fmt\.Print.*$`). It adds 1 issue on starter code: `internal/store/store.go:109`. Baseline is 7 issues.
   - `go build -race`, run, then `POST /admin/shutdown`: data race on `serverErr` in `main.go` (written by the server goroutine at line 36, read by `run` at line 47).
   - `auth.go` has a redundant `fmt.Printf("error validating password: %v\n", err)` added on purpose (commits `2f42479` "add redundant log statement" and `15f9dad` "make redundant log line more obvious").
 
