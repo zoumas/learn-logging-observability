@@ -71,7 +71,7 @@ The course says: "There are a few strange bits of code in the Linko starter repo
 
 ## Progress
 
-Chapter 1 done. `git log --oneline` and `notes/chNN.md` are the source of truth.
+Chapters 1 and 2 done. `git log --oneline` and `notes/chNN.md` are the source of truth.
 
 ## Tests
 

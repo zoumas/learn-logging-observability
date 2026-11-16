@@ -63,7 +63,7 @@ line, not text from the course.
 ## Progress
 
 - [x] 1. Observability
-- [ ] 2. Logging
+- [x] 2. Logging
 - [ ] 3. Structured Logging
 - [ ] 4. Log Strategies
 - [ ] 5. Logging Errors
