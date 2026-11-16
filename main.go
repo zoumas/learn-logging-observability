@@ -24,7 +24,7 @@ func main() {
 	os.Exit(status)
 }
 
-func run(ctx context.Context, cancel context.CancelFunc, httpPort int, dataDir string) int {
+func run(ctx context.Context, cancel context.CancelFunc, httpPort int, dataDir string) (status int) {
 	logger, closeLog, err := initializeLogger(os.Getenv("LINKO_LOG_FILE"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to create logger: %v\n", err)
@@ -33,6 +33,7 @@ func run(ctx context.Context, cancel context.CancelFunc, httpPort int, dataDir s
 	defer func() {
 		if err := closeLog(); err != nil {
 			fmt.Fprintf(os.Stderr, "error closing logger: %v\n", err)
+			status = 1
 		}
 	}()
 
