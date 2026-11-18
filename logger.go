@@ -5,15 +5,15 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"os"
 )
 
 type closeFunc func() error
 
-func initializeLogger(filename string) (*log.Logger, closeFunc, error) {
+func initializeLogger(filename string) (*slog.Logger, closeFunc, error) {
 	if filename == "" {
-		return log.New(os.Stderr, "", log.LstdFlags), func() error { return nil }, nil
+		return slog.New(slog.NewTextHandler(os.Stderr, nil)), func() error { return nil }, nil
 	}
 
 	file, err := os.OpenFile(filename, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o644)
@@ -23,7 +23,7 @@ func initializeLogger(filename string) (*log.Logger, closeFunc, error) {
 
 	bufferedFile := bufio.NewWriterSize(file, 8192)
 
-	logger := log.New(io.MultiWriter(os.Stderr, bufferedFile), "", log.LstdFlags)
+	logger := slog.New(slog.NewTextHandler(io.MultiWriter(os.Stderr, bufferedFile), nil))
 	return logger, func() error {
 		return errors.Join(bufferedFile.Flush(), file.Close())
 	}, nil
