@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"io"
 	"log/slog"
 	"os"
 )
@@ -12,8 +11,12 @@ import (
 type closeFunc func() error
 
 func initializeLogger(filename string) (*slog.Logger, closeFunc, error) {
+	debugHandler := slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{
+		Level: slog.LevelDebug,
+	})
+
 	if filename == "" {
-		return slog.New(slog.NewTextHandler(os.Stderr, nil)), func() error { return nil }, nil
+		return slog.New(debugHandler), func() error { return nil }, nil
 	}
 
 	file, err := os.OpenFile(filename, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o644)
@@ -23,7 +26,13 @@ func initializeLogger(filename string) (*slog.Logger, closeFunc, error) {
 
 	bufferedFile := bufio.NewWriterSize(file, 8192)
 
-	logger := slog.New(slog.NewTextHandler(io.MultiWriter(os.Stderr, bufferedFile), nil))
+	infoHandler := slog.NewTextHandler(bufferedFile, &slog.HandlerOptions{
+		Level: slog.LevelInfo,
+	})
+
+	multiHandler := slog.NewMultiHandler(debugHandler, infoHandler)
+
+	logger := slog.New(multiHandler)
 	return logger, func() error {
 		return errors.Join(bufferedFile.Flush(), file.Close())
 	}, nil
